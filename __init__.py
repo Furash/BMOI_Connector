@@ -65,7 +65,35 @@ def BMOI_Export():
     export_scale = prefs.export_scale
     apply_mods = prefs.export_use_modifiers     
      # ---EXPORT---
-    bpy.ops.export_scene.obj(filepath=temp_file_blender,
+    if bpy.app.version[0] > 3:
+        bpy.ops.wm.obj_export(filepath=temp_file_blender,
+                                check_existing=True,
+                                forward_axis ='NEGATIVE_Z',
+                                up_axis ='Y',
+                                filter_glob="*.obj;*.mtl",
+                                export_selected_objects =True,
+                                export_animation = False,
+                                apply_modifiers = apply_mods,
+                                export_uv = True,
+                                export_smooth_groups = False,
+                                smooth_group_bitflags = False,
+
+                                #  use_edges=False,   
+                                export_normals = True,
+                                export_materials =True,
+                                export_triangulated_mesh = False,
+                                export_curves_as_nurbs = False,
+                                export_vertex_groups = False,
+                                #  use_blen_objects=False,
+                                export_object_groups = True,
+                                export_material_groups = False,
+                                #  keep_vertex_order=True,
+
+                                global_scale=export_scale,
+                                path_mode='AUTO'
+                                )
+    else:
+        bpy.ops.export_scene.obj(filepath=temp_file_blender,
                              check_existing=True,
                              axis_forward='-Z',
                              axis_up='Y',
@@ -89,6 +117,8 @@ def BMOI_Export():
                              keep_vertex_order=True,
                              global_scale=export_scale,
                              path_mode='AUTO')
+   
+
    
                 
 
